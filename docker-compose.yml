@@ -1,0 +1,16 @@
+version: '3.1'
+services:
+  node:
+    build: https://github.com/vives-projectwerk2-2019/bug-api.git
+    ports:
+      - 8080:8080
+  mariadb:
+    build: https://github.com/vives-projectwerk2-2019/bug-database.git
+    ports:
+      - 13306:13306
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_DATABASE: bug
+      MYSQL_USER: api
+      MYSQL_PASSWORD: api
