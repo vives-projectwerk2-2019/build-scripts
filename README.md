@@ -15,6 +15,7 @@ Bash shell:
 ```
 docker container exec -it build-scripts_node_1 bash -l
 docker container exec -it build-scripts_mariadb_1 bash -l
+docker container exec -it build-scripts_kiosk_1 bash -l
 ```
 Sql shell:
 ```
