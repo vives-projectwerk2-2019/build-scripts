@@ -4,6 +4,8 @@ services:
     build: https://github.com/vives-projectwerk2-2019/bug-api.git
     ports:
       - 8080:8080
+    links:
+      - mariadb:db
   mariadb:
     build: https://github.com/vives-projectwerk2-2019/bug-database.git
     ports:
