@@ -1,15 +1,13 @@
 version: '3.1'
 services:
-  node:
-    build: https://github.com/vives-projectwerk2-2019/bug-api.git
+  broker:
+    build: https://github.com/vives-projectwerk2-2019/bug-broker.git
     ports:
-      - 8080:8080
-    links:
-      - mariadb:db
-  mariadb:
+      - 1883:1883
+  db:
     build: https://github.com/vives-projectwerk2-2019/bug-database.git
     ports:
-      - 13306:13306
+      - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
@@ -20,5 +18,7 @@ services:
     build: https://github.com/vives-projectwerk2-2019/bug-kiosk.git
     ports:
       - 3000:3000
-    links:
-      - node:api
+  api:
+    build: https://github.com/vives-projectwerk2-2019/bug-api.git
+  listener:
+    build: https://github.com/vives-projectwerk2-2019/TTN-Listener.git
