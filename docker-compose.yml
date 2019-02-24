@@ -12,6 +12,8 @@ services:
       - broker
   api:
     build: https://github.com/vives-projectwerk2-2019/bug-api.git
+    env_file:
+      - docker-vars-api.env
     depends_on:
       - broker
   db:
