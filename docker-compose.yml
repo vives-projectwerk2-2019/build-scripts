@@ -4,6 +4,16 @@ services:
     build: https://github.com/vives-projectwerk2-2019/bug-broker.git
     ports:
       - 1883:1883
+  listener:
+    build: https://github.com/vives-projectwerk2-2019/TTN-Listener.git
+    env_file:
+      - docker-vars-listener.env
+    depends_on:
+      - broker
+  api:
+    build: https://github.com/vives-projectwerk2-2019/bug-api.git
+    depends_on:
+      - broker
   db:
     build: https://github.com/vives-projectwerk2-2019/bug-database.git
     ports:
@@ -20,9 +30,5 @@ services:
       - 3000:3000
     env_file:
       - docker-vars-kiosk.env
-  api:
-    build: https://github.com/vives-projectwerk2-2019/bug-api.git
-  listener:
-    build: https://github.com/vives-projectwerk2-2019/TTN-Listener.git
-    env_file:
-      - docker-vars-listener.env
+    depends_on:
+      - db
