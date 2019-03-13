@@ -8,28 +8,34 @@ The ttn listener credentials need to be set before running.
 ## Building
 Build and run:
 ```
-docker-compose up --build
+docker-compose -p bug-universal-controller up --build
 ```
 Clean:
 ```
-docker-compose down
+docker-compose -p bug-universal-controller down
 ```
 ## While running:
 Bash shell:
 ```
-docker container exec -it build-scripts_broker_1 bash -l
-docker container exec -it build-scripts_listener_1 bash -l
-docker container exec -it build-scripts_api_1 bash -l
-docker container exec -it build-scripts_db_1 bash -l
-docker container exec -it build-scripts_kiosk_1 bash -l
+docker container exec -it bug-universal-controller_broker_1 bash -l
+docker container exec -it bug-universal-controller_listener_1 bash -l
+docker container exec -it bug-universal-controller_api_1 bash -l
+docker container exec -it bug-universal-controller_db_1 bash -l
+docker container exec -it bug-universal-controller_kiosk_1 bash -l
 ```
 Sql shell:
 ```
-docker container exec -it build-scripts_mariadb_1 mysql -u api -p
+docker container exec -it bug-universal-controller_db_1 mysql -u api -p
 ```
 Show ip address:
 ```
-docker container exec -it build-scripts_broker_1 ip a show eth0
-docker container exec -it build-scripts_kiosk_1 ip a show eth0
-docker container exec -it build-scripts_api_1 ip a show eth0
+docker container exec -it bug-universal-controller_broker_1 ip a
+docker container exec -it bug-universal-controller_kiosk_1 ip a
+docker container exec -it bug-universal-controller_api_1 ip a
 ```
+Or inspect the networks instead:
+```
+docker network inspect bug-universal-controller_public
+docker network inspect bug-universal-controller_db
+docker network inspect bug-universal-controller_api
+``
