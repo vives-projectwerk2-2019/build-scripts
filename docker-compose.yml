@@ -36,7 +36,7 @@ services:
       - db
       - api
   db:
-    build: https://github.com/vives-projectwerk2-2019/bug-database.git
+    image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: randomized
       MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
