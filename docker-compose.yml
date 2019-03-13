@@ -1,21 +1,40 @@
 version: '3.1'
 services:
-  broker:
-    build: https://github.com/vives-projectwerk2-2019/bug-broker.git
-    ports:
-      - 1883:1883
   listener:
     build: https://github.com/vives-projectwerk2-2019/TTN-Listener.git
     env_file:
       - docker-vars-listener.env
     depends_on:
       - broker
+    networks:
+      - public
+  broker:
+    build: https://github.com/vives-projectwerk2-2019/bug-broker.git
+    ports:
+      - 1883:1883
+    networks:
+      - public
+      - api
   api:
     build: https://github.com/vives-projectwerk2-2019/bug-api.git
     env_file:
       - docker-vars-api.env
     depends_on:
       - broker
+    networks:
+      - api
+  kiosk:
+    build: https://github.com/vives-projectwerk2-2019/bug-kiosk.git
+    ports:
+      - 80:3000
+    env_file:
+      - docker-vars-kiosk.env
+    depends_on:
+      - db
+    networks:
+      - public
+      - db
+      - api
   db:
     build: https://github.com/vives-projectwerk2-2019/bug-database.git
     environment:
@@ -24,11 +43,9 @@ services:
       MYSQL_DATABASE: bug
     env_file:
       - docker-vars-mariadb.env
-  kiosk:
-    build: https://github.com/vives-projectwerk2-2019/bug-kiosk.git
-    ports:
-      - 3000:3000
-    env_file:
-      - docker-vars-kiosk.env
-    depends_on:
+    networks:
       - db
+networks:
+  public:
+  db:
+  api:
