@@ -38,4 +38,4 @@ Or inspect the networks instead:
 docker network inspect bug-universal-controller_public
 docker network inspect bug-universal-controller_db
 docker network inspect bug-universal-controller_api
-``
+```
