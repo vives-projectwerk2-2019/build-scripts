@@ -1,0 +1,58 @@
+version: '3.1'
+services:
+  listener:
+  broker:
+    labels:
+      traefik.frontend.rule: "Host:api.bug.labict.be;PathStrip:/broker"
+      traefik.enable: true
+      traefik.port: 9001
+      traefik.frontend.passHostHeader: true
+      traefik.docker.network: reverse_proxy
+    networks:
+      - reverse_proxy
+    ports:
+      - 9001:9001
+  api:
+    networks:
+      - api
+      - reverse_proxy
+    labels:
+      traefik.frontend.rule: "Host:api.bug.labict.be"
+      traefik.enable: true
+      traefik.port: 8000
+      traefik.docker.network: reverse_proxy
+  kiosk:
+    networks:
+      - public
+      - db
+      - api
+      - reverse_proxy
+    labels:
+      traefik.frontend.rule: "Host:kiosk.bug.labict.be"
+      traefik.enable: true
+      traefik.port: 8000
+      traefik.docker.network: reverse_proxy
+    command: php artisan serve --host=0.0.0.0
+  game: 
+    networks:
+      - reverse_proxy
+    labels:
+      traefik.frontend.rule: "Host:game.bug.labict.be"
+      traefik.enable: true
+      traefik.port: 80
+      traefik.docker.network: reverse_proxy
+  game-server:
+    networks:
+      - reverse_proxy
+    labels:
+      traefik.fronend.rule: "Host:server.game.bug.labict.be"
+      traefik.enable: true
+      traefik.port: 3000
+      traefik.docker.network: reverse_proxy
+networks:
+  public:
+  db:
+  api:
+  reverse_proxy:
+    external:
+      name: reverse_proxy
