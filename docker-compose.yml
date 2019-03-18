@@ -1,6 +1,7 @@
 version: '3.1'
 services:
   listener:
+    image: buguniversalgamecontroller/ttn-listener:latest
     build: https://github.com/vives-projectwerk2-2019/TTN-Listener.git
     env_file:
       - docker-vars-listener.env
@@ -9,6 +10,7 @@ services:
     networks:
       - public
   broker:
+    image: buguniversalgamecontroller/broker:latest
     build: https://github.com/vives-projectwerk2-2019/bug-broker.git
     ports:
       - 1883:1883
@@ -16,6 +18,7 @@ services:
       - public
       - api
   api:
+    image: buguniversalgamecontroller/api:latest
     build: https://github.com/vives-projectwerk2-2019/bug-api.git
     env_file:
       - docker-vars-api.env
@@ -24,6 +27,7 @@ services:
     networks:
       - api
   kiosk:
+    image: buguniversalgamecontroller/kiosk:latest
     build: https://github.com/vives-projectwerk2-2019/bug-kiosk.git
     ports:
       - 80:8000
@@ -45,6 +49,20 @@ services:
       - docker-vars-mariadb.env
     networks:
       - db
+  game:
+    image: buguniversalgamecontroller/game:latest
+    build: https://github.com/vives-projectwerk2-2019/game-frontend.git
+    ports:
+      - 80 
+    networks:
+      - public
+  game-server:
+    image: buguniversalgamecontroller/game-server:latest
+    build: https://github.com/vives-projectwerk2-2019/game-server.git
+    ports:
+      - 9001
+    networks:
+      - public
 networks:
   public:
   db:
