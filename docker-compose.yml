@@ -24,9 +24,10 @@ services:
     networks:
       - api
   kiosk:
-    build: https://github.com/vives-projectwerk2-2019/bug-kiosk.git
+    build: https://github.com/vives-projectwerk2-2019/bug-kiosk.git#kiosk-dev
     ports:
       - 80:8000
+      - 443:443
     env_file:
       - docker-vars-kiosk.env
     depends_on:
