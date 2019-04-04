@@ -24,7 +24,7 @@ services:
     networks:
       - api
   kiosk:
-    build: https://github.com/vives-projectwerk2-2019/bug-kiosk.git#kiosk-dev
+    build: https://github.com/vives-projectwerk2-2019/bug-kiosk.git
     ports:
       - 80:8000
       - 443:443
