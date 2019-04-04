@@ -12,6 +12,7 @@ services:
     build: https://github.com/vives-projectwerk2-2019/bug-broker.git
     ports:
       - 1883:1883
+      - 9001:9001
     networks:
       - public
       - api
